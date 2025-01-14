@@ -24,3 +24,19 @@ class UiInterface(ABC):
     @abstractmethod
     def print_board(self, board):
         pass
+
+    @abstractmethod
+    def run(self, game):
+        pass
+
+    @abstractmethod
+    def print_result(self, result, player):
+        pass
+
+    @abstractmethod
+    def print_sunk(self, player):
+        pass
+
+    @abstractmethod
+    def print_exception(self, e):
+        pass

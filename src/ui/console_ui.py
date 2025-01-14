@@ -1,3 +1,5 @@
+import os
+import sys
 from abc import ABC
 
 from src.ui.ui_interface import UiInterface
@@ -6,6 +8,11 @@ from src.ui.ui_interface import UiInterface
 class ConsoleUI(UiInterface, ABC):
     def __init__(self):
         super().__init__()
+
+    def run(self, game):
+        print("Welcome to Battleships!")
+        print("You have to place your battleships on the board")
+        print("After that, you will be prompted to enter the coordinates for your hits")
 
     def get_placement(self, battleships):
         print("Lets place the battleships")
@@ -20,9 +27,9 @@ class ConsoleUI(UiInterface, ABC):
         print(board)
 
     def print_boards(self, _player_board, _computer_board):
+        #os.system('cls')
         print("Player board:")
         print(_player_board)
-        # TODO: Print the computer board but hide the ships
         print("Computer board:")
         print(_computer_board)
 
@@ -38,3 +45,12 @@ class ConsoleUI(UiInterface, ABC):
         x = int(input("Enter the x coordinate: ")) - 1
         y = int(input("Enter the y coordinate: ")) - 1
         return x, y
+
+    def print_result(self, result, player):
+        print(f"{player} has {'hit' if result else 'missed'}")
+
+    def print_sunk(self, player):
+        print(f"{player} has sunk a ship")
+
+    def print_exception(self, e):
+        print(e)
