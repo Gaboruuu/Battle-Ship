@@ -1,52 +1,168 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/AM3fGEK5)
-# :video_game: Assignment 10 - Let's play
-## Requirements
-- Use object oriented programming and layered architecture
-- All modules with the exception of the UI will have specifications and PyUnit test cases for the non-trivial methods
-- The program will be implemented as a human player vs. computer player game
-- The program must protect itself against the user’s invalid input
+# 🚢 Battleship Game
 
-**NB!** We do not expect you to implement optimal play for the computer player. However, it should still employ a strategy when making its moves in order to attempt to win the game and provide an entertaining opponent for the human player. Minimally, the computer player should move to win the game whenever possible and should block the human player’s attempts at 1-move victory, whenever possible
+A Python implementation of the classic Battleship game with both console and graphical (Pygame) interfaces. Play against an intelligent computer opponent that uses strategic targeting algorithms.
 
-**deadline is week 14**
+## 📋 Features
 
-## GUI Bonus (0.2P)
-- In addition to the console-based user interface required, also implement a graphical user interface (GUI) for the program
-- To receive the bonus, both user interfaces (menu-based and graphical) must use the same program layers. You have to be able to start the application with either user interface
-## AI Bonus (0.2P)
-- Implement computer AI using a [minimax algorithm](https://en.wikipedia.org/wiki/Minimax). Computer play should be competitive against the human player
-- In the case where minimax cannot be applied (e.g. Battleship, which is not a [complete information](https://en.wikipedia.org/wiki/Complete_information) game), find a suitable alternative; talk to your lab professor about the bonus possibility in this case
-## Best-of-FP Bonus (0.2P)
-- This bonus will be awarded to the very best implementations. To receive it, you need to implement both the **GUI** and **AI** bonuses, follow all implementation requirements, and have your work be selected by the laboratory professor
-- These implementations will be part of a separate GitHub repository that we aim to make publicly accessible in order to feature some of our students' best work during this semester
+- **Dual UI Support**: Choose between console-based or Pygame graphical interface
+- **Configurable Game Settings**: Customize board size, number of ships, and ship lengths
+- **Smart AI Opponent**: Computer player uses intelligent targeting strategies
+- **Ship Placement**: Place your battleships horizontally or vertically on the board
+- **Real-time Feedback**: Track hits, misses, and remaining ships
+- **Game Statistics**: View final game statistics including hit/miss ratios
 
+## 🎮 Game Modes
 
-## Problem Statements
-### Battleship
-The game is described [here](https://en.wikipedia.org/wiki/Battleship_(game))
+### Console UI
 
-### Checkers
-The game is described [here](https://en.wikipedia.org/wiki/Checkers)
+A text-based interface for quick gameplay in the terminal.
 
-### Connect Four
-The game is described [here](https://en.wikipedia.org/wiki/Connect_Four)
+### Pygame UI
 
-### Four-field kono
-The game is described [here](https://en.wikipedia.org/wiki/Four-field_kono)
+A graphical interface with visual board representation and mouse controls.
 
-### Gomoku
-The game is described [here](https://en.wikipedia.org/wiki/Gomoku)
+## 🛠️ Installation
 
-### Nine men's morris
-The game is described [here](https://en.wikipedia.org/wiki/Nine_men%27s_morris)
+### Prerequisites
 
-### Obstruction
-The game is described [here](http://www.papg.com/show?2XMX)
+- Python 3.x
+- Pygame (for graphical UI)
 
-### Planes
-The game is described [here](https://ro.wikipedia.org/wiki/Avioane_(joc))
+### Setup
 
-### Reversi (or Othello)
-The game is described [here](https://en.wikipedia.org/wiki/Reversi)
+1. Clone the repository:
 
+```bash
+git clone https://github.com/Gaboruuu/Battle-Ship.git
+cd a10-Gabor-Gabriel
+```
 
+2. Install dependencies:
+
+```bash
+pip install pygame
+```
+
+## ⚙️ Configuration
+
+Edit the `src/settings.properties` file to customize your game:
+
+```properties
+ui=pygame                    # Options: pygame, console
+board_size=6                 # Size of the game board (6x6)
+battleships=4                # Number of battleships
+battle_ship_length=2,3,4     # Lengths of individual battleships
+```
+
+### Configuration Options:
+
+- **ui**: Choose between `pygame` (graphical) or `console` (text-based)
+- **board_size**: Size of the square game board (e.g., 6 creates a 6x6 grid)
+- **battleships**: Number of ships to place on the board
+- **battle_ship_length**: Comma-separated list of ship lengths
+
+## 🚀 How to Run
+
+Navigate to the project directory and run:
+
+```bash
+python src/app.py
+```
+
+Or from the src directory:
+
+```bash
+cd src
+python app.py
+```
+
+## 🎯 How to Play
+
+### Ship Placement Phase
+
+1. When the game starts, you'll be prompted to place your battleships
+2. For **Console UI**: Enter coordinates, direction (HORIZONTAL/VERTICAL or h/v), and ship length
+3. For **Pygame UI**: Click on the board to place ships
+
+### Attack Phase
+
+1. Take turns with the computer to attack coordinates on the opponent's board
+2. For **Console UI**: Enter x and y coordinates
+3. For **Pygame UI**: Click on the opponent's board to attack
+4. Track hits (successful attacks) and misses
+5. First player to sink all opponent's ships wins!
+
+### Board Symbols (Console UI)
+
+- `0`: Empty water
+- `1-10`: Your ships
+- `-1`: Hit
+- `-2`: Miss
+
+## 📁 Project Structure
+
+```
+a10-Gabor-Gabriel/
+├── src/
+│   ├── app.py                    # Main entry point
+│   ├── settings.properties       # Game configuration
+│   ├── game_test.py             # Unit tests
+│   ├── board/
+│   │   ├── __init__.py
+│   │   └── board.py             # Board logic (PlayerBoard, ComputerBoard)
+│   ├── Service/
+│   │   ├── __init__.py
+│   │   ├── game.py              # Game logic and flow
+│   │   └── computer_player.py   # AI player implementation
+│   └── ui/
+│       ├── __init__.py
+│       ├── ui_interface.py      # UI abstract interface
+│       ├── console_ui.py        # Console-based UI
+│       └── pygame_ui.py         # Pygame graphical UI
+└── README.md
+```
+
+## 🧠 AI Strategy
+
+The computer player implements an intelligent targeting system:
+
+- **Random Search**: Initially attacks random coordinates
+- **Hunt Mode**: When a ship is hit, targets adjacent cells
+- **Target Queue**: Maintains a list of potential ship locations
+- **Proximity Targeting**: Prioritizes coordinates near previous hits
+
+## 🧪 Testing
+
+Run the test suite:
+
+```bash
+python src/game_test.py
+```
+
+## 🎓 Academic Project
+
+This project was developed as an assignment (a10) for an Informatics course, demonstrating:
+
+- Object-oriented programming principles
+- Separation of concerns (UI, logic, data)
+- Strategy pattern for AI implementation
+- Multiple interface implementations
+- Configuration-driven application design
+
+## 📝 License
+
+This is an academic project for educational purposes.
+
+## 👨‍💻 Author
+
+**Gabor Gabriel**
+
+- GitHub: [@Gaboruuu](https://github.com/Gaboruuu)
+
+## 🤝 Contributing
+
+This is an academic assignment, but suggestions and feedback are welcome!
+
+---
+
+**Enjoy the game and happy sailing! ⚓**
