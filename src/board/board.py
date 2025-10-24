@@ -64,11 +64,11 @@ class Board:
         if direction == ShipDirection.HORIZONTAL:
             for i in range(battle_ship_length):
                 if self._board[y][x + i] != 0:
-                    raise ValueError("Ship overlaps with another ship")
+                    raise ValueError("Ship overlaps")
         else:
             for i in range(battle_ship_length):
                 if self._board[y + i][x] != 0:
-                    raise ValueError("Ship overlaps with another ship")
+                    raise ValueError("Ship overlaps")
 
     def check_hit(self, x: int, y: int) -> (bool, int):
         """
